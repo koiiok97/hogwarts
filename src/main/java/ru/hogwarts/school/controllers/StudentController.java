@@ -2,6 +2,7 @@ package ru.hogwarts.school.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.models.Faculty;
 import ru.hogwarts.school.models.Student;
 import ru.hogwarts.school.services.StudentService;
 
@@ -22,7 +23,8 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Student>> getStudentAll() {
+    public ResponseEntity getStudentAll(@RequestParam(required = false) Boolean onlyName) {
+        if (onlyName != null && onlyName) return ResponseEntity.ok(studentService.getAllNames());
         return ResponseEntity.ok(studentService.getStudentAll());
     }
 
@@ -39,6 +41,37 @@ public class StudentController {
         Collection<Student> students = studentService.getStudentByAge(age);
         if (students.isEmpty()) return ResponseEntity.notFound().build();
 
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/age")
+    public ResponseEntity<Collection<Student>> getStudentsByAgeBetween(@RequestParam int ageFrom, @RequestParam int ageTo) {
+        return ResponseEntity.ok(studentService.getStudentsByAgeBetween(ageFrom, ageTo));
+    }
+
+    @GetMapping("/age/10And20")
+    public ResponseEntity<Collection<Student>> getStudentByAgeBetween() {
+        return ResponseEntity.ok(studentService.getStudentsByAgeBetween10And20());
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<Collection<Student>> getStudentByName(@PathVariable String name) {
+        Collection<Student> students = studentService.getStudentByName(name);
+        if (students.isEmpty()) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/faculty/{id}")
+    public ResponseEntity<Faculty> getFacultyByStudentId(@PathVariable Long id) {
+        Faculty faculty = studentService.getFacultyByStudentId(id);
+        if (faculty == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(faculty);
+    }
+
+    @GetMapping("/facultyId/{id}")
+    public ResponseEntity<Collection<Student>> getStudentByFacultyId(@PathVariable Long id) {
+        Collection<Student> students = studentService.getStudentsByFacultyId(id);
+        if (students.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(students);
     }
 

@@ -12,17 +12,10 @@ public class Student {
     private String name;
     private int age;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }
 
     public Student(Long id, String name, int age) {
         this.id = id;
@@ -34,6 +27,15 @@ public class Student {
     public Student() {
     }
 
+
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
 
     public Long getId() {
         return id;

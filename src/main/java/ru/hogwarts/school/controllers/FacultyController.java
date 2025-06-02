@@ -18,13 +18,13 @@ public class FacultyController {
     }
 
     @PostMapping
-    public ResponseEntity<Faculty> addFaculty(@RequestBody Faculty faculty) {
-        return ResponseEntity.ok(facultyService.createFaculty(faculty));
+    public Faculty addFaculty(@RequestBody Faculty faculty) {
+        return facultyService.createFaculty(faculty);
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Faculty>> getFacultyAll() {
-        return ResponseEntity.ok(facultyService.getFacultyAll());
+    public Collection<Faculty> getFacultyAll() {
+        return facultyService.getFacultyAll();
     }
 
     @GetMapping("{id}")
@@ -55,8 +55,8 @@ public class FacultyController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Faculty> deleteFacultyById(@PathVariable Long id) {
+    public String deleteFacultyById(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
-        return ResponseEntity.ok().build();
+        return "Факультет удалене";
     }
 }

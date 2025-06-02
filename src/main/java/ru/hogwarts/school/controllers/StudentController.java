@@ -18,8 +18,8 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
-        return ResponseEntity.ok(studentService.createStudent(student));
+    public Student addStudent(@RequestBody Student student) {
+        return studentService.createStudent(student);
     }
 
     @GetMapping
@@ -45,13 +45,13 @@ public class StudentController {
     }
 
     @GetMapping("/age")
-    public ResponseEntity<Collection<Student>> getStudentsByAgeBetween(@RequestParam int ageFrom, @RequestParam int ageTo) {
-        return ResponseEntity.ok(studentService.getStudentsByAgeBetween(ageFrom, ageTo));
+    public Collection<Student> getStudentsByAgeBetween(@RequestParam int ageFrom, @RequestParam int ageTo) {
+        return studentService.getStudentsByAgeBetween(ageFrom, ageTo);
     }
 
     @GetMapping("/age/10And20")
-    public ResponseEntity<Collection<Student>> getStudentByAgeBetween() {
-        return ResponseEntity.ok(studentService.getStudentsByAgeBetween10And20());
+    public Collection<Student> getStudentByAgeBetween() {
+        return studentService.getStudentsByAgeBetween10And20();
     }
 
     @GetMapping("/name/{name}")
@@ -84,8 +84,8 @@ public class StudentController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Student> deleteStudentById(@PathVariable Long id) {
+    public String deleteStudentById(@PathVariable Long id) {
         studentService.deleteStudent(id);
-        return ResponseEntity.ok().build();
+        return "Студент удален";
     }
 }

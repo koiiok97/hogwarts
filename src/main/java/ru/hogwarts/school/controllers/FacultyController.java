@@ -57,6 +57,6 @@ public class FacultyController {
     @DeleteMapping("{id}")
     public String deleteFacultyById(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
-        return "Факультет удалене";
+        return "Факультет удален";
     }
 }

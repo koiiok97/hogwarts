@@ -1,5 +1,6 @@
 package ru.hogwarts.school.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.models.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
@@ -7,12 +8,9 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import java.util.Collection;
 
 @Service
+@AllArgsConstructor
 public class FacultyService {
     private final FacultyRepository facultyRepository;
-
-    public FacultyService(FacultyRepository facultyRepository) {
-        this.facultyRepository = facultyRepository;
-    }
 
     public Collection<Faculty> getFacultyAll() {
         return facultyRepository.findAll();

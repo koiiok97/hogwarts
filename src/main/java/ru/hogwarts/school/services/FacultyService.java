@@ -22,8 +22,8 @@ public class FacultyService {
         return facultyRepository.findById(id).get();
     }
 
-    public Collection<Faculty> getFacultyByColor(String color) {
-        return facultyRepository.findByColor(color);
+    public Collection<Faculty> getFacultyByColorOrName(String color, String name) {
+        return facultyRepository.findByColorContainsIgnoreCaseOrNameContainsIgnoreCase(color, name);
     }
 
     public Faculty createFaculty(Faculty faculty) {

@@ -3,8 +3,6 @@ package ru.hogwarts.school.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Objects;
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,14 +10,18 @@ import java.util.Objects;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class Student {
+public class Avatar {
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
-    private int age;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "faculty_id")
-    private Faculty faculty;
+    private String filePath;
+    private long fileSize;
+    private String mediaType;
+
+    private byte[] data;
+
+    @OneToOne
+    private Student student;
+
 }

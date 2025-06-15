@@ -2,6 +2,7 @@ package ru.hogwarts.school.services;
 
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.models.Faculty;
 import ru.hogwarts.school.models.Student;
@@ -11,12 +12,9 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
-
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
 
     public Collection<Student> getStudentAll() {
         return studentRepository.findAll();

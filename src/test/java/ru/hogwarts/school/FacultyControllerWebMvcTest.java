@@ -77,7 +77,7 @@ public class FacultyControllerWebMvcTest {
 
     @Test
     public void getFacultyAllTest() throws Exception {
-        Faculty faculty = new Faculty(1L, "Test", "red");
+        Faculty faculty = new Faculty(1L, "Test", "red", null);
 
         when(facultyRepository.findAll()).thenReturn(List.of(faculty));
 
@@ -92,7 +92,7 @@ public class FacultyControllerWebMvcTest {
 
     @Test
     public void getFacultyByIdTest() throws Exception {
-        Faculty faculty = new Faculty(1L, "Test", "red");
+        Faculty faculty = new Faculty(1L, "Test", "red", null);
 
         when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
 
@@ -107,7 +107,7 @@ public class FacultyControllerWebMvcTest {
 
     @Test
     public void getFacultyByColorOrNameTest() throws Exception {
-        Faculty faculty = new Faculty(1L, "Test", "red");
+        Faculty faculty = new Faculty(1L, "Test", "red", null);
 
         when(facultyRepository.findByColorContainsIgnoreCaseOrNameContainsIgnoreCase(any(String.class), any(String.class))).thenReturn(List.of(faculty));
 
@@ -124,7 +124,7 @@ public class FacultyControllerWebMvcTest {
 
     @Test
     void updateFacultyTest() throws Exception {
-        Faculty updatedFaculty = new Faculty(1L, "Test Faculty", "red");
+        Faculty updatedFaculty = new Faculty(1L, "Test Faculty", "red", null);
         when(facultyService.updateFaculty(any(Faculty.class))).thenReturn(updatedFaculty);
 
         mockMvc.perform(MockMvcRequestBuilders

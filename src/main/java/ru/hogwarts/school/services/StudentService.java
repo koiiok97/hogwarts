@@ -8,8 +8,8 @@ import ru.hogwarts.school.models.Faculty;
 import ru.hogwarts.school.models.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
+import javax.swing.plaf.PanelUI;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -56,6 +56,12 @@ public class StudentService {
     public Collection<Student> getStudentByAge(int age) {
         return studentRepository.findByAge(age);
     }
+
+    public Integer getCountStudent(){return studentRepository.getCountStudent();}
+
+    public Double getAvgAge(){return studentRepository.getAvgAge();}
+
+    public Collection<Student> getLastFiveStudents() {return studentRepository.getLastFiveStudent();}
 
     public Student createStudent(Student faculty) {
         return studentRepository.save(faculty);

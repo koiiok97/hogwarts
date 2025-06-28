@@ -78,7 +78,7 @@ public class StudentControllerWebMvcTest {
 
     @Test
     public void getAllStudentTest() throws Exception {
-        Student student = new Student(1L, "Maxim", 12);
+        Student student = new Student(1L, "Maxim", 12, null);
         when(studentRepository.findAll()).thenReturn(List.of(student));
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -92,7 +92,7 @@ public class StudentControllerWebMvcTest {
 
     @Test
     public void getStudentByIdTest() throws Exception {
-        Student student = new Student(1L, "Maxim", 12);
+        Student student = new Student(1L, "Maxim", 12, null);
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -106,7 +106,7 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void getStudentsByAgeTest() throws Exception {
-        Student student = new Student(1L, "Maxim", 12);
+        Student student = new Student(1L, "Maxim", 12, null);
         when(studentRepository.findByAge(12)).thenReturn(List.of(student));
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -120,7 +120,7 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void getStudentsByAgeBetweenTest() throws Exception {
-        Student student = new Student(1L, "Maxim", 12);
+        Student student = new Student(1L, "Maxim", 12, null);
         when(studentRepository.findByAgeBetween(10, 15)).thenReturn(List.of(student));
         when(studentService.getStudentsByAgeBetween10And20()).thenReturn(List.of(student));
 
@@ -144,7 +144,7 @@ public class StudentControllerWebMvcTest {
     @Test
     void getStudentByNameTest() throws Exception {
         String name = "Maxim";
-        Student student = new Student(1L, name, 12);
+        Student student = new Student(1L, name, 12, null);
         when(studentRepository.findByNameContains(name)).thenReturn(List.of(student));
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -158,7 +158,7 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void getFacultyByStudentIdTest() throws Exception {
-        Faculty faculty = new Faculty(1L, "Faculty Test", "red");
+        Faculty faculty = new Faculty(1L, "Faculty Test", "red", null);
 
         when(studentService.getFacultyByStudentId(any(Long.class))).thenReturn(faculty);
         mockMvc.perform(MockMvcRequestBuilders
@@ -172,7 +172,7 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void getStudentByFacultyIdTest() throws Exception {
-        Student student = new Student(1L, "Maxim", 12);
+        Student student = new Student(1L, "Maxim", 12, null);
 
         when(studentRepository.findByFacultyId(any(Long.class))).thenReturn(List.of(student));
         mockMvc.perform(MockMvcRequestBuilders
@@ -186,7 +186,7 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void updateStudentTest() throws Exception {
-        Student updatedStudent = new Student(1L, "Maxim", 19);
+        Student updatedStudent = new Student(1L, "Maxim", 19, null);
         when(studentService.updateStudent(any(Student.class))).thenReturn(updatedStudent);
 
         mockMvc.perform(MockMvcRequestBuilders

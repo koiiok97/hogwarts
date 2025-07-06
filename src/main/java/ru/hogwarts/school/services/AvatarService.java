@@ -1,6 +1,8 @@
 package ru.hogwarts.school.services;
 
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class AvatarService {
     private final AvatarRepository avatarRepository;
     private final StudentRepository studentRepository;
 
+    Logger logger = LoggerFactory.getLogger(StudentService.class);
+
+
     @Value("${path.to.avatars.folder}")
     private String avatarsDir;
 
@@ -35,11 +40,13 @@ public class AvatarService {
     }
 
     public Collection<Avatar> getAllAvatars(Integer pageNumber, Integer pageSize) {
+        logger.debug("Was invoked method for get all avatars");
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return avatarRepository.findAll(pageRequest).getContent();
     }
 
     public void uploadAvatar(Long studentId, MultipartFile file) throws IOException {
+        logger.debug("Was invoked method for upload avatar");
         Student student = studentRepository.getById(studentId);
         Path filePath = Path.of(avatarsDir, student + "." + getExtensions(file.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
@@ -64,6 +71,7 @@ public class AvatarService {
     }
 
     private byte[] generateDataForDB(Path filePath) throws IOException {
+        logger.debug("Was invoked method generate data for db");
         try(
             InputStream inputStream = Files.newInputStream(filePath);
             BufferedInputStream bis = new BufferedInputStream(inputStream, 1024);
@@ -83,6 +91,7 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(Long studentId) {
+        logger.debug("Was invoked method for find avatar");
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
 

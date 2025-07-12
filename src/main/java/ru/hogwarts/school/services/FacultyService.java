@@ -33,6 +33,21 @@ public class FacultyService {
         return facultyRepository.findByColorContainsIgnoreCaseOrNameContainsIgnoreCase(color, name);
     }
 
+    public Collection<String> getBigFacultyName(){
+        Collection<Faculty> facultyList = facultyRepository.findAll();
+
+        int maxNameLen = facultyList.stream()
+                .map(Faculty::getName)
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
+
+        return facultyList.stream()
+                .map(Faculty::getName)
+                .filter(name -> name.length() == maxNameLen)
+                .toList();
+    }
+
     public Faculty createFaculty(Faculty faculty) {
         logger.debug("Was invoked method for create faculty");
         return facultyRepository.save(faculty);

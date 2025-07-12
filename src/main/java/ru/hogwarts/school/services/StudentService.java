@@ -80,6 +80,27 @@ public class StudentService {
         return studentRepository.getAvgAge();
     }
 
+    public Collection<String> getAllStudentsWithNameA(){
+        Collection<Student> studentList = studentRepository.findAll();
+
+        return studentList.stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(n -> n.charAt(0) == 'A')
+                .sorted()
+                .toList();
+    }
+
+    public Double getAvgAllStudents(){
+        Collection<Student> studentList = studentRepository.findAll();
+
+        return studentList.stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0.0);
+    }
+
+
     public Collection<Student> getLastFiveStudents() {
         logger.debug("Was invoked method for get last five students");
         return studentRepository.getLastFiveStudent();}

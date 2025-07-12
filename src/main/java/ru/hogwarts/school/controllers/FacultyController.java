@@ -46,6 +46,11 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
+    @GetMapping("/big-name")
+    public Collection<String> getBigFacultyName(){
+        return facultyService.getBigFacultyName();
+    }
+
     @PutMapping
     public ResponseEntity<Faculty> updateFaculty(@RequestBody Faculty faculty) {
         Faculty facultyUpdated = facultyService.updateFaculty(faculty);

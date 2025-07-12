@@ -90,6 +90,16 @@ public class StudentController {
         return studentService.getLastFiveStudents();
     }
 
+    @GetMapping("/with-a")
+    public Collection<String> getAllStudentsWithNameA(){
+        return studentService.getAllStudentsWithNameA();
+    }
+
+    @GetMapping("/avg")
+    public Double getAvgAllStudents(){
+        return studentService.getAvgAllStudents();
+    }
+
     @PutMapping
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student updatedStudent = studentService.updateStudent(student);

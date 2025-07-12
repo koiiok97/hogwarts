@@ -90,6 +90,41 @@ public class StudentController {
         return studentService.getLastFiveStudents();
     }
 
+
+    @GetMapping("/print-parallel")
+    public void printParallel() {
+        Collection<String> studentsList = studentService.getAllNames();
+
+        System.out.println(studentsList.toArray()[0]);
+        System.out.println(studentsList.toArray()[1]);
+
+        new Thread(() -> {
+            System.out.println(studentsList.toArray()[2]);
+            System.out.println(studentsList.toArray()[3]);
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(studentsList.toArray()[4]);
+            System.out.println(studentsList.toArray()[5]);
+        }).start();
+    }
+
+    @GetMapping("/print-synchronized")
+    public void printSynchronized() {
+        synchronizedMethod(0);
+        synchronizedMethod(1);
+
+        new Thread(() -> {
+            synchronizedMethod(2);
+            synchronizedMethod(3);
+        }).start();
+
+        new Thread(() -> {
+            synchronizedMethod(4);
+            synchronizedMethod(5);
+        }).start();
+    }
+
     @PutMapping
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student updatedStudent = studentService.updateStudent(student);
@@ -102,5 +137,10 @@ public class StudentController {
     public String deleteStudentById(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return "Студент удален";
+    }
+
+    private synchronized void synchronizedMethod(int index){
+        Collection<String> studentsList = studentService.getAllNames();
+        System.out.println(studentsList.toArray()[index]);
     }
 }
